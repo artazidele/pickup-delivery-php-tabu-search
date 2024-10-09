@@ -4,7 +4,13 @@
 Testpiemēra fails, kurā ir doti ievaddati 6 klientiem.
 Paredzēts, ka vienlaicīgi var pārvadāt vienu paciņu. 
 3 klientiem paciņa jāaizved, 3 jāsaņem.
-Programmai jāizdrukā virkne 6xy6xy6xy6, kur xy ir kāds no pāriem 25, 14 vai 03.
+Programmai jāizdrukā virkne 6xy6xy6xy6, kur xy ir pāri 25, 14 un 03 jebkurā secībā:
+ - 6036146256
+ - 6036256146
+ - 6146036256
+ - 6146256036
+ - 6256036146
+ - 6256146036
 */
 
 include_once './Instances.php';
