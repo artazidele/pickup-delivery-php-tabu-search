@@ -5,6 +5,9 @@ include_once './TabuSearchAlgorithm.php';
 
 /*
 Testpiemēra fails, kurā ir doti ievaddati 3 klientiem.
+
+Programmai jāizdrukā 320313 vai 313203.
+
 Ar N tiek apzīmēta noliktava. Ar 0, 1, 2 - klienti.
 */
 

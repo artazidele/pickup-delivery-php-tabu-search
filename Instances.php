@@ -133,19 +133,33 @@ class Instances {
                     $newPart = [];
                 }
             }
-            $this->canDeliver($parts);
+            $this->canReceiveAndDeliver($parts);
         }
     }
 
     // Funkcija, kas pārbauda, vai starp noliktavas apmeklējumu
-    // var saņemt visas lietas no klientiem
-    public function canReceive($instancesParts) {
+    // var saņemt un piegādāt visas lietas no klientiem
+    public function canReceiveAndDeliver($instancesParts) {
         $maxSize = 0;
         foreach ($instancesParts as $part) {
+            // aprēķina sākumā ievietoto paciņu tilpumu
             $size = 0;
             foreach ($part as $index) {
                 if($index != $this->n) {
-                    if($this->deliveryTypeArray[$index] == 1) {
+                    if($this->deliveryTypeArray[$index] == 0) {
+                        $itemSize = $this->itemSizeMatrix[$index][0]*$this->itemSizeMatrix[$index][1]*$this->itemSizeMatrix[$index][2];
+                        $size = $size + $itemSize;
+                    } 
+                }
+            }
+            foreach ($part as $index) {
+                if($index != $this->n) {
+                    // nodod paciņu klientam
+                    if($this->deliveryTypeArray[$index] == 0) {
+                        $itemSize = $this->itemSizeMatrix[$index][0]*$this->itemSizeMatrix[$index][1]*$this->itemSizeMatrix[$index][2];
+                        $size = $size - $itemSize;
+                    } else {
+                        // paņem paciņu no klienta
                         $itemSize = $this->itemSizeMatrix[$index][0]*$this->itemSizeMatrix[$index][1]*$this->itemSizeMatrix[$index][2];
                         $size = $size + $itemSize;
                     }
@@ -164,30 +178,6 @@ class Instances {
                 }
             }
             array_push($this->allFilteredInstances, $validInstance);
-        }
-    }
-
-    // Funkcija, kas pārbauda, vai starp noliktavas apmeklējumu var piegādāt 
-    // visas lietas klientiem
-    public function canDeliver($instancesParts) {
-        $maxSize = 0;
-        foreach ($instancesParts as $part) {
-            $size = 0;
-            foreach ($part as $index) {
-                if($index != $this->n) {
-                    if($this->deliveryTypeArray[$index] == 0) {
-                        $itemSize = $this->itemSizeMatrix[$index][0]*$this->itemSizeMatrix[$index][1]*$this->itemSizeMatrix[$index][2];
-                        $size = $size + $itemSize;
-                    }
-                }
-                if ($maxSize < $size) {
-                    $maxSize = $size;
-                }
-            }
-        }
-        $carSize = $this->carX * $this->carY * $this->carZ;
-        if ($maxSize <= $carSize) {
-            $this->canReceive($instancesParts);
         }
     }
 
