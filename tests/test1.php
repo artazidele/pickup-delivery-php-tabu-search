@@ -1,7 +1,7 @@
 <?php
 
-include_once 'Instances.php';
-include_once 'TabuSearchAlgorithm.php';
+include_once './Instances.php';
+include_once './TabuSearchAlgorithm.php';
 
 /*
 Testpiemēra fails, kurā ir doti ievaddati 3 klientiem.
